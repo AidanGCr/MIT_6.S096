@@ -67,17 +67,6 @@ int get_format(union float_bits input, FILE* outFile) {
 }
 
 int main(int argc, char** argv) { 
-    
-    // setting up test floats
-    union float_bits input; 
-    input.f = 3; 
-    //get_format(input); 
-    input.f = 1.5; 
-    //get_format(input);
-    input.f = 0.15625; 
-    //get_format(input);
-    input.f = -7.333; 
-    //get_format(input);
 
     // open the given input file and read it in
     // write the output to an output file
@@ -87,20 +76,22 @@ int main(int argc, char** argv) {
 
         //opening input file and output file
         FILE *inFile = fopen(argv[counter], "r");
-        char *outFileName = argv[counter]; 
-        char *suffix = ".out"; 
+        char *suffix = ".out";
+        char *outFileName = malloc(strlen(suffix) + strlen(argv[counter]));   
+        strcpy(outFileName, argv[counter]);
         strcat(outFileName, suffix); 
         FILE *outFile = fopen(outFileName, "w");
 
         // reading input file in a loop and output to the outFile
         union float_bits currentData; 
 
-        while (fscanf(inFile, "%f", &currentData.f) > 0) { 
+        while (fscanf(inFile, "%f", &currentData.f) == 1 && !feof(inFile)) { 
             get_format(currentData, outFile); 
         }
 
         fclose(inFile); 
         fclose(outFile); 
+        free(outFileName); 
     }
 
     return 0; 
