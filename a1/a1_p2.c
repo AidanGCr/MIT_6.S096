@@ -33,7 +33,7 @@ int printMatrix(Matrix matrix) {
 
     for (size_t row = 0; row < matrix.R; row++) { 
         for (size_t column = 0; column < matrix.C; column++) { 
-            printf("[%zu][%zu] = %d\n", row, column, matrix.index[row][column]); 
+            printf("[%zu][%zu] = %d\n", row, column, matrix.index[row][column]);
         }
     }
 
